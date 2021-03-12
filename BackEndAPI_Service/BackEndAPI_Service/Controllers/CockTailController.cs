@@ -12,10 +12,10 @@ namespace BackEndAPI_Service.Controllers
     [Route("cocktails")]
     public class CockTailController : Controller
     {
+        //DrinksDBContext drinksContext = new DrinksDBContext();
         //[HttpGet("alldrinks")]
         //public ActionResult<string> Get()
         //{
-            
         //}
     }
 }
