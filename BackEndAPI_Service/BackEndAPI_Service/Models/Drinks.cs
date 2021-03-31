@@ -7,9 +7,10 @@ namespace BackEndAPI_Service
 {
     public class Drinks
     {
-        public string ID { get; set; } // Primary Key
+        public int ID { get; set; } // Primary Key
         public string DrinkName { get; set; }
         public int PercentageOfAlcohol { get; set; }
         public int Milliliter { get; set; }
+        public double Price { get; set; }
     }
 }

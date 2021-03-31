@@ -3,14 +3,16 @@ using BackEndAPI_Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndAPI_Service.Migrations
 {
     [DbContext(typeof(DrinksDBContext))]
-    partial class DrinksDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210313140821_UpdatedSchema")]
+    partial class UpdatedSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,10 +22,8 @@ namespace BackEndAPI_Service.Migrations
 
             modelBuilder.Entity("BackEndAPI_Service.Drinks", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("DrinkName")
                         .HasColumnType("nvarchar(max)");
