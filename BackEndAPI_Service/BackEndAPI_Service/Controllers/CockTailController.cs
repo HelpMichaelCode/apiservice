@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Text.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using System.Text.RegularExpressions;
 
 namespace BackEndAPI_Service.Controllers
 {
@@ -15,7 +10,6 @@ namespace BackEndAPI_Service.Controllers
     public class CockTailController : Controller
     {
         private readonly DrinksDBContext dBContext = new DrinksDBContext();
-
         [HttpGet("alldrinks")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -42,7 +36,7 @@ namespace BackEndAPI_Service.Controllers
                 return NotFound("No drinks found!");
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> AddDrink(Drinks drink)
@@ -64,10 +58,10 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> DeleteDrink([FromQuery] int ID)
         {
-            if(ID != null)
+            if(ID != 0)
             {
-                var drinkItem = dBContext.Drinks.Where(d => d.ID == ID);
-                var result = dBContext.Drinks.Remove((Drinks)drinkItem);
+                var drinksDetail = dBContext.Drinks.Find(ID);
+                dBContext.Remove(drinksDetail);
                 dBContext.SaveChanges();
                 return Ok("Drink deleted!");
             }
@@ -75,6 +69,56 @@ namespace BackEndAPI_Service.Controllers
             {
                 return BadRequest("Error in deleting drink!");
             }
+        }
+
+        [HttpPut("update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Drinks> UpdateDrink(Drinks drink)
+        {
+            if (drink != null)
+            {
+                var drinkToUpdate = dBContext.Drinks.Find(drink.ID);
+                if(drinkToUpdate != null)
+                {
+                    drinkToUpdate.Milliliter = drink.Milliliter;
+                    drinkToUpdate.PercentageOfAlcohol = drink.PercentageOfAlcohol;
+                    drinkToUpdate.Price = drink.Price;
+                    drinkToUpdate.DrinkName = drink.DrinkName;
+                    dBContext.SaveChanges();
+                }
+                return Ok("Drinks Upadted!");
+            }
+            else
+            {
+                return BadRequest("Error in updating drinks!");
+            }
+        }
+
+        [HttpGet("ascending")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Drinks> SortAscending()
+        {
+            if (dBContext != null)
+            {
+                return Ok(dBContext.Drinks.OrderBy(d => d.ID));
+            }
+            else
+                return NotFound("Data context not found to be able to connect to DB");
+        }
+
+        [HttpGet("descending")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<Drinks> SortDescending()
+        {
+            if (dBContext != null)
+            {
+                return Ok(dBContext.Drinks.OrderByDescending(d => d.ID));
+            }
+            else
+                return NotFound("Data context not found to be able to connect to DB");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price) 
+﻿SET IDENTITY_INSERT dbo.Drinks on;
+
+INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price) 
 	VALUES(1,'Bushmill', 90, 700, 99.00);
 
 INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price) 
@@ -39,3 +41,5 @@ INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price)
 
 INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price) 
 	VALUES(14,'Cocktail Squad Whiskey Sour', 23, 700, 67.78);
+
+SET IDENTITY_INSERT dbo.Drinks off;

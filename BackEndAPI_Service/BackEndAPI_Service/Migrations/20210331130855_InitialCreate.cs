@@ -10,10 +10,12 @@ namespace BackEndAPI_Service.Migrations
                 name: "Drinks",
                 columns: table => new
                 {
-                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DrinkName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PercentageOfAlcohol = table.Column<int>(type: "int", nullable: false),
-                    Milliliter = table.Column<int>(type: "int", nullable: false)
+                    Milliliter = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {

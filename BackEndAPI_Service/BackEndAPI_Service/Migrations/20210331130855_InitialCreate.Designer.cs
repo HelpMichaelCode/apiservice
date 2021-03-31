@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndAPI_Service.Migrations
 {
     [DbContext(typeof(DrinksDBContext))]
-    [Migration("20210331125447_UpdateDB")]
-    partial class UpdateDB
+    [Migration("20210331130855_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
