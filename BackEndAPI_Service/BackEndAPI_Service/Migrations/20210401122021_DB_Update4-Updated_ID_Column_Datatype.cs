@@ -2,7 +2,7 @@
 
 namespace BackEndAPI_Service.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class DB_Update4Updated_ID_Column_Datatype : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,11 @@ namespace BackEndAPI_Service.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DrinkName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DrinkName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PercentageOfAlcohol = table.Column<int>(type: "int", nullable: false),
                     Milliliter = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

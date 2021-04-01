@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEndAPI_Service.Migrations
 {
     [DbContext(typeof(DrinksDBContext))]
-    [Migration("20210401110042_DB_Update2-Updated_Image_Property_Name")]
-    partial class DB_Update2Updated_Image_Property_Name
+    [Migration("20210401122021_DB_Update4-Updated_ID_Column_Datatype")]
+    partial class DB_Update4Updated_ID_Column_Datatype
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,7 @@ namespace BackEndAPI_Service.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DrinkName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")

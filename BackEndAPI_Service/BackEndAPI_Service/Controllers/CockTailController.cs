@@ -45,7 +45,7 @@ namespace BackEndAPI_Service.Controllers
             {
                 dBContext.Add(drink);
                 dBContext.SaveChanges();
-                return Ok($"New drink added!: \n{drink}");
+                return Ok($"New drink added!");
             }
             else
             {
@@ -58,9 +58,9 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> DeleteDrink([FromQuery] int ID)
         {
-            if(ID != 0)
+            var drinksDetail = dBContext.Drinks.Find(ID);
+            if(drinksDetail != null) 
             {
-                var drinksDetail = dBContext.Drinks.Find(ID);
                 dBContext.Remove(drinksDetail);
                 dBContext.SaveChanges();
                 return Ok("Drink deleted!");

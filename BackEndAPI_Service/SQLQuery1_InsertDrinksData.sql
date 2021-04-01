@@ -43,5 +43,3 @@ INSERT INTO dbo.Drinks(ID, DrinkName, PercentageOfAlcohol, Milliliter, Price, Im
 	VALUES(14,'Cocktail Squad Whiskey Sour', 23, 700, 67.78, 'https://www.barbizmag.com/wp-content/uploads/2020/08/cocktailsquadwhiskeysour-300x216.jpg');
 
 SET IDENTITY_INSERT dbo.Drinks off;
-
-DELETE FROM dbo.Drinks;
