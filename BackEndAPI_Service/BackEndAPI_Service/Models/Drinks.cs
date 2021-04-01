@@ -12,16 +12,6 @@ namespace BackEndAPI_Service
         public int PercentageOfAlcohol { get; set; }
         public int Milliliter { get; set; }
         public double Price { get; set; }
-
-        public void UpdateData(Drinks drink)
-        {
-            if(ID == drink.ID)
-            {
-                DrinkName = drink.DrinkName;
-                PercentageOfAlcohol = drink.PercentageOfAlcohol;
-                Milliliter = drink.Milliliter;
-                Price = drink.Price;
-            }
-        }
+        public string ImageUrl { get; set; }
     }
 }

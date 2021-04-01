@@ -3,14 +3,16 @@ using BackEndAPI_Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndAPI_Service.Migrations
 {
     [DbContext(typeof(DrinksDBContext))]
-    partial class DrinksDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210401104746_DB_Update1-Added_Image_Property")]
+    partial class DB_Update1Added_Image_Property
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +30,7 @@ namespace BackEndAPI_Service.Migrations
                     b.Property<string>("DrinkName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Milliliter")
