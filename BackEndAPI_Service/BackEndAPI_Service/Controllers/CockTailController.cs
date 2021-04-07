@@ -22,20 +22,6 @@ namespace BackEndAPI_Service.Controllers
                 return NotFound("No data found!");
         }
 
-        [HttpGet("filter")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<Drinks> GetSpecificDrink([FromQuery] string name)
-        {
-            if (!String.IsNullOrEmpty(name)) 
-            {
-                var result = dBContext.Drinks.Where(d => d.DrinkName.Contains(name));
-                return Ok(result);
-            }
-            else
-                return NotFound("No drinks found!");
-        }
-
         [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -53,7 +39,7 @@ namespace BackEndAPI_Service.Controllers
             }
         }
 
-        [HttpDelete("ID")]
+        [HttpDelete()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> DeleteDrink([FromQuery] int ID)
@@ -75,7 +61,7 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> UpdateDrink(Drinks drink)
-        {
+        {   
             if (drink != null)
             {
                 var drinkToUpdate = dBContext.Drinks.Find(drink.ID);
