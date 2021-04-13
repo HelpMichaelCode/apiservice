@@ -10,7 +10,7 @@ namespace BackEndAPI_Service.Controllers
     public class CockTailController : Controller
     {
         private readonly DrinksDBContext dBContext = new DrinksDBContext();
-        [HttpGet("alldrinks")]
+        [HttpGet("alldrinks")] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Drinks> GetAllDrinks()
@@ -88,7 +88,7 @@ namespace BackEndAPI_Service.Controllers
         {
             if (dBContext != null)
             {
-                return Ok(dBContext.Drinks.OrderBy(d => d.ID));
+                return Ok(dBContext.Drinks.OrderBy(d => d.DrinkName));
             }
             else
                 return NotFound("Data context not found to be able to connect to DB");
@@ -101,7 +101,7 @@ namespace BackEndAPI_Service.Controllers
         {
             if (dBContext != null)
             {
-                return Ok(dBContext.Drinks.OrderByDescending(d => d.ID));
+                return Ok(dBContext.Drinks.OrderByDescending(d => d.DrinkName));
             }
             else
                 return NotFound("Data context not found to be able to connect to DB");
