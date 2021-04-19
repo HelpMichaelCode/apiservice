@@ -1,13 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static BackEndAPI_Service.DrinksDBContext;
 
 namespace BackEndAPI_Service
 {
@@ -15,9 +7,7 @@ namespace BackEndAPI_Service
     {
         public static void Main(string[] args)
         {
-            var passHost = CreateHostBuilder(args).Build();
-            CreateDbIfNotExists(passHost);
-            passHost.Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -26,22 +16,6 @@ namespace BackEndAPI_Service
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-
-        private static void CreateDbIfNotExists(IHost host)
-        {
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            try
-            {
-                var context = services.GetRequiredService<DrinksDBContext>();
-                DatabaseIntializer.Init(context);
-            }
-            catch (Exception ex)
-            {
-                var logger = services.GetRequiredService<ILogger<Program>>();
-                logger.LogError(ex, "An error occurred creating the DB.");
-            }
-        }
     }
     
 }

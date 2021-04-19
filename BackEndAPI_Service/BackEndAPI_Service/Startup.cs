@@ -27,7 +27,17 @@ namespace BackEndAPI_Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DrinksDBContext>();
+            services.AddDbContext<CocktailDB_Context>(options =>
+            {
+                options.UseSqlServer(Configuration["ConnectionStrings:Context"]);
+            });
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(cors =>
+                {
+                    cors.WithOrigins("*").AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

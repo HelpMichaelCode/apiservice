@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
@@ -9,13 +8,17 @@ namespace BackEndAPI_Service.Controllers
     [Route("cocktails")]
     public class CockTailController : Controller
     {
-        private readonly DrinksDBContext dBContext = new DrinksDBContext();
+        private readonly CocktailDB_Context _dBContext;
+        public CockTailController(CocktailDB_Context cocktaildb)
+        {
+            _dBContext = cocktaildb;
+        }
         [HttpGet("alldrinks")] 
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Drinks> GetAllDrinks()
         {
-            var result = dBContext.Drinks.OrderBy(d => d.ID);
+            var result = _dBContext.Drinks.OrderBy(d => d.ID);
             if (result != null)
                 return Ok(result);
             else
@@ -29,8 +32,8 @@ namespace BackEndAPI_Service.Controllers
         {
             if(drink != null)
             {
-                dBContext.Add(drink);
-                dBContext.SaveChanges();
+                _dBContext.Add(drink);
+                _dBContext.SaveChanges();
                 return Ok($"New drink added!");
             }
             else
@@ -44,11 +47,11 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Drinks> DeleteDrink([FromQuery] int ID)
         {
-            var drinksDetail = dBContext.Drinks.Find(ID);
+            var drinksDetail = _dBContext.Drinks.Find(ID);
             if(drinksDetail != null) 
             {
-                dBContext.Remove(drinksDetail);
-                dBContext.SaveChanges();
+                _dBContext.Remove(drinksDetail);
+                _dBContext.SaveChanges();
                 return Ok("Drink deleted!");
             }
             else
@@ -64,14 +67,14 @@ namespace BackEndAPI_Service.Controllers
         {   
             if (drink != null)
             {
-                var drinkToUpdate = dBContext.Drinks.Find(drink.ID);
+                var drinkToUpdate = _dBContext.Drinks.Find(drink.ID);
                 if(drinkToUpdate != null)
                 {
                     drinkToUpdate.Milliliter = drink.Milliliter;
                     drinkToUpdate.PercentageOfAlcohol = drink.PercentageOfAlcohol;
                     drinkToUpdate.Price = drink.Price;
                     drinkToUpdate.DrinkName = drink.DrinkName;
-                    dBContext.SaveChanges();
+                    _dBContext.SaveChanges();
                 }
                 return Ok("Drinks Upadted!");
             }
@@ -86,9 +89,9 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Drinks> SortAscending()
         {
-            if (dBContext != null)
+            if (_dBContext != null)
             {
-                return Ok(dBContext.Drinks.OrderBy(d => d.DrinkName));
+                return Ok(_dBContext.Drinks.OrderBy(d => d.DrinkName));
             }
             else
                 return NotFound("Data context not found to be able to connect to DB");
@@ -99,9 +102,9 @@ namespace BackEndAPI_Service.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<Drinks> SortDescending()
         {
-            if (dBContext != null)
+            if (_dBContext != null)
             {
-                return Ok(dBContext.Drinks.OrderByDescending(d => d.DrinkName));
+                return Ok(_dBContext.Drinks.OrderByDescending(d => d.DrinkName));
             }
             else
                 return NotFound("Data context not found to be able to connect to DB");

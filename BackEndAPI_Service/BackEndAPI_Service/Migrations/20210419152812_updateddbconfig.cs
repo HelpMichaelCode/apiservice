@@ -2,7 +2,7 @@
 
 namespace BackEndAPI_Service.Migrations
 {
-    public partial class DB_Update4Updated_ID_Column_Datatype : Migration
+    public partial class updateddbconfig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -3,16 +3,14 @@ using BackEndAPI_Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BackEndAPI_Service.Migrations
 {
-    [DbContext(typeof(DrinksDBContext))]
-    [Migration("20210401122021_DB_Update4-Updated_ID_Column_Datatype")]
-    partial class DB_Update4Updated_ID_Column_Datatype
+    [DbContext(typeof(CocktailDB_Context))]
+    partial class CocktailDB_ContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
